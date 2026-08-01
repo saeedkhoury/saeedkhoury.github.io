@@ -91,36 +91,11 @@
   var glitchActive = false;
   var glitchRaf    = null;
 
+  /* Plain black backdrop — no colour bands, no noise */
   function drawGlitch() {
     if (!glitchActive) return;
-    ctx.clearRect(0, 0, W, H);
     ctx.fillStyle = '#000';
     ctx.fillRect(0, 0, W, H);
-
-    var bands = 28 + (Math.random() * 22 | 0);
-    for (var i = 0; i < bands; i++) {
-      var y = Math.random() * H;
-      var h = 2 + Math.random() * 32;
-      var a = 0.14 + Math.random() * 0.52;
-      ctx.fillStyle = Math.random() > 0.5
-        ? 'rgba(233,30,140,' + a + ')'
-        : 'rgba(0,255,80,'   + a + ')';
-      ctx.fillRect(0, y, W * (0.35 + Math.random() * 0.65), h);
-    }
-    for (var j = 0; j < 7; j++) {
-      ctx.fillStyle = 'rgba(0,0,0,' + (0.38 + Math.random() * 0.38) + ')';
-      ctx.fillRect(0, Math.random() * H, W, 2 + Math.random() * 9);
-    }
-    ctx.font = '11px "JetBrains Mono",monospace';
-    var dchars = '01234![]{}|#';
-    for (var k = 0; k < 38; k++) {
-      ctx.fillStyle = 'rgba(0,255,80,' + (0.3 + Math.random() * 0.5) + ')';
-      ctx.fillText(dchars[Math.random() * dchars.length | 0], Math.random() * W, Math.random() * H);
-    }
-    for (var s = 0; s < H; s += 3) {
-      ctx.fillStyle = 'rgba(0,0,0,0.07)';
-      ctx.fillRect(0, s, W, 1);
-    }
     glitchRaf = requestAnimationFrame(drawGlitch);
   }
 
